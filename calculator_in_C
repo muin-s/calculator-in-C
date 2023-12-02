@@ -1,0 +1,753 @@
+// Scientific Calculator Program (in C)
+
+
+// Header Files
+#include <stdio.h>
+#include <stdlib.h>
+ // for Trigonometric, Logarithmic and Exponential function
+#define PI 3.141592654
+#define INFINITYY  -4875588388.187565 
+
+// Global variables to hold Results
+long long intResult = 0;
+double k = 0, result = 0;
+
+// Menu function (to be called in switch)
+int menu()
+{
+    int ch;
+    printf("\n1. Addition");
+    printf("\n2. Subtraction");
+    printf("\n3. Multiplication");
+    printf("\n4. Division");
+    printf("\n5. Remainder");
+    printf("\n6. Factorial");
+    printf("\n7. Sine");
+    printf("\n8. Cosine");
+    printf("\n9. Tangent");
+    printf("\n10.log(base e)");
+    printf("\n11.log(base 10)");
+    printf("\n12.e^x");
+    printf("\n13.SquareRoot");
+    printf("\n14.CubeRoot");
+    printf("\n15.Power");
+    printf("\n16.powof10");
+    printf("\n17.Absolute Value");
+    printf("\n18.npr");
+    printf("\n19.ncr");
+    printf("\n20.Clear");
+    printf("\n21.Exit");
+    
+    printf("\nEnter your choice: ");
+
+    scanf("%d", &ch);
+    return ch;
+}
+
+// Function to add numbers
+void addition()
+{
+    double a, b;
+    if(k)
+    {
+        printf("\nEnter a number: ");
+        scanf("%lf", &a);
+        result += a;
+        printf("\nResult = %lf", result);
+    }
+    else
+    {
+        printf("\nEnter two numbers: ");
+        scanf("%lf%lf", &a, &b);
+        result = a + b;
+        printf("\nResult = %lf", result);
+    }
+}
+
+// Function to subtract numbers
+void subtraction()
+{
+    double a, b;
+    if(k)
+    {
+        printf("\nEnter a number: ");
+        scanf("%lf", &a);
+        result -= a;
+        printf("\nResult = %lf", result);
+    }
+    else
+    {
+        printf("\nEnter two numbers: ");
+        scanf("%lf%lf", &a, &b);
+        result = a - b;
+        printf("\nResult = %lf", result);
+    }
+}
+
+// Function to multiply numbers
+void multiplication()
+{
+    double a, b;
+    if(k)
+    {
+        printf("\nEnter a number: ");
+        scanf("%lf", &a);
+        result *= a;
+        printf("\nResult = %lf", result);
+    }
+    else
+    {
+        printf("\nEnter two numbers: ");
+        scanf("%lf%lf", &a, &b);
+        result = a * b;
+        printf("\nResult = %lf",result);
+    }
+}
+
+// Function to divide numbers
+void division()
+{
+    double a, b;
+    if(k)
+    {
+        printf("\nEnter a number: ");
+        scanf("%lf", &a);
+        if(a!=0)
+        {
+        result /= a;
+        printf("\nResult = %lf", result);
+        }
+        else
+        {
+        printf("Math Error\n");
+        }
+    }
+    else
+    {
+        printf("\nEnter two numbers: ");
+        scanf("%lf%lf", &a, &b);
+        if (b!=0)
+        {
+        result = a / b;
+        printf("\nResult = %lf", result);
+        }
+        else
+        {
+        printf("Math Error\n");
+        }
+    }
+}
+
+// Function to find remainder
+void mod()
+{
+    long long a, b;
+    if(k)
+    {
+        printf("\nEnter a number: ");
+        scanf("%lld", &a);
+        intResult %= a;
+        printf("\nResult = %d",intResult);
+    }
+    else
+    {
+        printf("\nEnter two numbers: ");
+        scanf("%lld%lld", &a, &b);
+        intResult = a % b;
+        printf("\nResult = %lld", intResult);
+    }
+}
+
+// Function to calculate factorial of a number
+void factorial()
+{
+    long long n, f, i;
+    printf("\nEnter a number: ");
+    scanf("%lld", &n);
+    f = 1;
+    for(i = 1; i<=n; i++)
+    {
+        f = f * i;
+    }
+    intResult = f;
+    printf("\nResult = %lld", intResult);
+
+}
+long long factorialReturn(long long n)
+{
+    long long f, i;
+    f = 1;
+    for(i = 1; i<=n; i++)
+    {
+        f = f * i;
+    }
+    return f;
+}
+
+
+// Function to calculate sine of angle in radians
+double factorial1(int n) {
+    if (n == 0) {
+        return 1.0;
+    } else {
+        return (double)n * factorial1(n - 1);
+    }
+}
+
+double power1(double x, int n) {
+    double result = 1.0;
+    for (int i = 0; i < n; i++) {
+        result *= x;
+    }
+    return result;
+}
+
+double toRadians(double degrees) {
+   
+    if(degrees>360){
+       while (degrees > 360.0) {
+            degrees -= 360.0;
+        }}
+        else if(degrees<0){
+            while(degrees<0){
+                degrees+=360;
+            }
+        }
+        return degrees*(PI/180);
+    }
+
+
+double sin_maclaurin(double x) {
+    double result = 0.0;
+    for (int n = 0; n < 15; n++) {
+        double term = ((n % 2 == 0) ? 1 : -1) * power1(x, 2 * n + 1) / factorial1(2 * n + 1);
+        result += term;
+    }
+    return result;
+}
+void sine()
+{
+   double angle;
+    int choice;
+
+    printf("Choose input unit:\n");
+    printf("1. Radians\n");
+    printf("2. Degrees\n");
+    printf("Enter your choice: ");
+    scanf("%d", &choice);
+
+  if (choice == 1) {
+        printf("Enter angle in radians: ");
+        
+        scanf("%lf", &angle);
+        if(angle>(2*PI)){
+            while(angle>(2*PI)){
+                angle-=(2*PI);
+            }
+        }
+        else if(angle<0){
+            while(angle<0){
+                angle+=(2*PI);
+            }
+        }
+    } else if (choice == 2) {
+        printf("Enter angle in degrees: ");
+        scanf("%lf", &angle);
+        angle = toRadians(angle);
+    } 
+
+    result = sin_maclaurin(angle);
+
+    printf("\nResult = %lf\n", result);
+}
+double cos_maclaurin(double x) {
+    double result = 0.0;
+    for (int n = 0; n < 15; n++) {
+        double term = ((n % 2 == 0) ? 1 : -1) * power1(x, 2 * n) / factorial1(2 * n);
+        result += term;
+    }
+    return result;
+}
+
+// Function to calculate cosine of angle in radians
+void cosine()
+{
+    
+    double angle;
+    int choice;
+
+    printf("Choose input unit:\n");
+    printf("1. Radians\n");
+    printf("2. Degrees\n");
+    printf("Enter your choice: ");
+    scanf("%d", &choice);
+
+    if (choice == 1) {
+        printf("Enter angle in radians: ");
+        
+        scanf("%lf", &angle);
+        if(angle>(2*PI)){
+            while(angle>(2*PI)){
+                angle-=(2*PI);
+            }
+        }
+        else if(angle<0){
+            while(angle<0){
+                angle+=(2*PI);
+            }
+        }
+    } else if (choice == 2) {
+        printf("Enter angle in degrees: ");
+        scanf("%lf", &angle);
+        angle = toRadians(angle);
+    } 
+
+    result = cos_maclaurin(angle);
+
+    printf("\nResult = %lf\n", result);
+
+    
+}
+
+// Function to calculate tangent of angle in radians
+
+double tan_maclaurin(double x) {
+    double result = 0.0;
+    for (int n = 0; n < 30; n++) {
+        double term = (power1(-1, n) * power1(x, 2 * n + 1)) / factorial1(2 * n + 1);
+        result += term;
+    }
+    return result;
+}
+
+void tangent()
+{
+    double angle, result_sin, result_cos, result_tan;
+    int choice;
+    int check=0;
+
+    printf("Choose input unit:\n");
+    printf("1. Radians\n");
+    printf("2. Degrees\n");
+    printf("Enter your choice: ");
+    scanf("%d", &choice);
+
+    if (choice == 1) {
+        printf("Enter angle in radians: ");
+        
+        scanf("%lf", &angle);
+        if(angle>(2*PI)){
+            while(angle>(2*PI)){
+                angle-=(2*PI);
+            }
+        }
+        else if(angle<0){
+            while(angle<0){
+                angle+=(2*PI);
+            }
+        }
+    } else if (choice == 2) {
+        printf("Enter angle in degrees: ");
+        scanf("%lf", &angle);
+        angle = toRadians(angle);
+    } 
+
+    result_sin = sin_maclaurin(angle);
+    result_cos = cos_maclaurin(angle);
+
+    // Check if cosine is close to zero to avoid division by zero
+    if (result_cos > -1e-10 && result_cos < 1e-10) {
+        printf("Result: Tan is undefined (division by zero)\n");
+        check=1;
+    } else {
+        result_tan = result_sin / result_cos;
+        printf("\nResult:\n");
+        
+    }
+    if(check==0){
+    result = result_tan;
+    }
+    else{
+        result=INFINITYY;
+    }
+    
+    printf("\nResult = %lf\n", result);
+
+    
+    
+}
+double expp(double &a)
+{
+    
+    
+    double result1 = 1.0;
+    double term = 1.0;  // First term in the series is 1.0
+
+    for (int i = 1; i<100; ++i) {
+        term *= (a ) / i;
+        result1 += term;
+    }
+    
+    return result1;
+}
+
+// Function to calculate log (base e)
+double ln_maclaurin(double x) {
+    double t = 0.00001;
+    double result1 = 0.0;
+    if(x<1){
+       while (x<expp(t)){
+      t=t-0.00001;
+    } 
+    }
+    else{
+    while (x>expp(t)){
+      t=t+0.00001;
+    }
+    }
+    result1 =t;
+
+    return result1;
+}
+void logBasee()
+{
+   double x;
+
+    printf("Enter the value of x: ");
+    scanf("%lf", &x);
+
+    result = ln_maclaurin(x);
+
+    printf("\nResult = %lf",  result);
+}
+
+
+// Function to calculate log (base 10)
+void logBase10()
+{
+    double x;
+
+    printf("Enter the value of x: ");
+    scanf("%lf", &x);
+
+    result = ln_maclaurin(x);
+    result=result*0.43429448190;
+
+    printf("\nResult = %lf",  result);
+    
+}
+
+// Function to calculate e^x
+void eToPowerX()
+{
+    double a;
+    printf("Enter a number: ");
+    scanf("%lf", &a);
+    double result1 = 1.0;
+    double term = 1.0;  // First term in the series is 1.0
+
+    for (int i = 1; term>0; ++i) {
+        term *= (a ) / i;
+        result1 += term;
+    }
+    result = result1;
+    printf("\nResult = %lf", result);
+}
+void pow10a(){
+    double a;
+    printf("Enter a number: ");
+    scanf("%lf", &a);
+    double result1 = 1.0;
+    double term = 1.0;  // First term in the series is 1.0
+
+    for (int i = 1; term>0; ++i) {
+        term *= (a * 2.30258509299) / i;
+        result1 += term;
+    }
+    result = result1;
+    printf("\nResult = %lf", result);
+    
+}
+
+double sqrtt(double n){
+double t=0.0001;
+ 
+ 
+ for(int i=0;t*t<(n);i++){
+   t+=0.0001;
+
+ }
+ return t;
+}
+// Function to find the Square Root of a Number
+void squareRoot()
+{
+    double n;
+    printf("\nEnter a number: ");
+    scanf("%lf",&n);
+    if (n<0.0)
+    {
+    printf("Math Error\n");
+    }
+    else
+    {
+    result = sqrtt(n);
+    printf("\nResult = %lf", result);
+    }
+}
+
+double cubrtt(double n){
+double t=0.0001;
+ 
+ 
+ for(int i=0;(t*t*t)<(n);i++){
+   t+=0.0001;
+
+ }
+ return t;
+}
+
+// Function to find the Cube Root of a Number
+void cubeRoot()
+{
+    double n;
+    printf("\nEnter a number: ");
+    scanf("%lf",&n);
+    result = cubrtt(n);
+    printf("\nResult = %.3lf", result);
+}
+
+// Function to find the Power of a Number
+//fisrt make functions of return
+double re(double a) {
+    double result = 1.0;
+    double term = 1.0;
+
+    for (int n = 1; n < 1000; ++n) {
+        term *= a / n;
+        result += term;
+    }
+
+    return result;
+}
+void power()
+{
+    double base, expo;
+    printf("Enter a base number: ");
+    scanf("%lf", &base);
+    printf("Enter an exponent: ");
+    scanf("%lf", &expo);
+
+    double result1 = 1.0;
+    double term = 1.0;  // First term in the series is 1.0
+    // if(((expo)*(ln_maclaurin(base)))<0){
+    //     for(int i=0;;i++){
+    //         if(((expo)*(ln_maclaurin(base)))>=ln_maclaurin(result1)){
+    //           break;
+    //         }
+    //     result1-=0.2;
+    //     }
+    // }
+    // else{
+        
+    //     for(int i=0;;i++){
+    //         if(((expo)*(ln_maclaurin(base)))<=ln_maclaurin(result1)){
+    //           break;
+    //         }
+    //     result1+=0.5;
+    //     }
+    // }
+
+    result1=re(expo*(ln_maclaurin(base)));
+    // }
+    result = result1;
+    printf("\nResult = %lf\n%lf\n%lf ", result,(ln_maclaurin(base)),expo*(ln_maclaurin(base)));
+    
+}
+
+// Function to find the Absolute Value of a Number
+void absolute()
+{
+     float n;
+    printf("\nEnter a number: ");
+    scanf("%f",&n);
+    if(n>0.0){
+        result =n;
+    }
+    else{
+        result= (-1.0)*n;
+    }
+    
+    printf("\nResult = %f", result);
+}
+
+// Function to compute the arc sine(inverse sine) of an argument
+
+
+// Function to compute the arc cosine(inverse cosine) of an argument
+
+
+// Function to compute the arc tangent(inverse tangent) of an argument
+
+
+// This function gives the smallest integer that is greater than or equal to Number
+
+
+// Function to calculate Permutations (nPr)
+void npr()
+{
+    long long n, r;
+    printf("\nEnter two numbers: ");
+    scanf("%lld%lld", &n, &r);
+    if(n>=r && n>0 && r>=0)
+    {
+    intResult = factorialReturn(n) / factorialReturn(n - r);
+    printf("\nResult = %lld", intResult);
+    }
+    else
+    {
+    printf("Math Error\n");
+    }
+}
+
+// Function to calculate Combinations (nCr)
+void ncr()
+{
+    long long n, r;
+    printf("\nEnter two numbers: ");
+    scanf("%lld %lld", &n, &r);
+    if(n>=r && n>0 && r>=0)
+    {
+    intResult = factorialReturn(n) / (factorialReturn(r) * factorialReturn(n - r));
+    printf("\nResult = %lld", intResult);
+    }
+    else
+    {
+    printf("Math Error\n");
+    }
+}
+
+// Function to reset global variables
+void clear()
+{
+    printf("\nOld Data Cleared");
+    intResult = 0;
+    result = 0;
+    k = 0;
+}
+
+// MAIN
+int main()
+{
+    
+    
+int l=0;
+    // Main execution loop
+    while(1)
+    {
+        // Displaying the current results
+        printf("\n    Old Decimal Result = %f", result);
+        printf("\n    Old Integer Result = %d", intResult);
+
+        // Switch Menu
+        switch(menu())
+        {
+            case 1: addition();
+                    k = 1;
+                    break;
+
+            case 2: subtraction();
+                    k = 1;
+                    break;
+
+            case 3: multiplication();
+                    k = 1;
+                    break;
+
+            case 4: division();
+                    k = 1;
+                    break;
+
+            case 5: mod();
+                    k = 1;
+                    break;
+
+            case 6: factorial();
+                    k = 1;
+                    break;
+
+            case 7: sine();
+                    k = 1;
+                    break;
+
+            case 8: cosine();
+                    k = 1;
+                    break;
+
+            case 9: tangent();
+                    k = 1;
+                    break;
+
+            case 10:logBasee();
+                    k = 1;
+                    break;
+
+            case 11:logBase10();
+                    k = 1;
+                    break;
+
+            case 12:eToPowerX();
+                    k = 1;
+                    break;
+
+            case 13:squareRoot();
+                    k = 1;
+                    break;
+
+            case 14:cubeRoot();
+                    k = 1;
+                    break;
+
+            case 15:power();
+                    k = 1;
+                    break;
+            case 16:pow10a();
+                    k=1;
+                    break;
+
+            case 17:absolute();
+                    k = 1;
+                    break;
+
+            case 18:npr();
+                    k = 1;
+                    break;
+
+            case 19:ncr();
+                    k = 1;
+                    break;
+
+            case 20:clear();
+                    break;
+
+            case 21:l = 1;
+                    break;
+
+            
+
+            default:
+                    printf("\nInvalid Choice !");
+        }
+        // Waiting for a button to be pressed
+        printf("\nThankyou");
+        getchar();
+
+        // Clear screen command to clear screen after each menu iteration
+        
+        system("cls");
+        // To break out of this menu loop
+        if (l==1){
+            break;
+        }
+    }
+}
